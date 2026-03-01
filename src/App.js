@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Login from "./pages/Login";               // default export ✅
+import Register from "./pages/Register";         // default export ✅
+import ListingDetails from "./pages/ListingDetails"; // default export ✅
+import Dashboard from "./pages/Dashboard";       // default export ✅
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthProvider from "./context/AuthContext"; // ✅ no curly braces
+
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
+          <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/listing/:id" element={<ListingDetails />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
