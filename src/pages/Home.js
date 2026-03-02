@@ -122,18 +122,19 @@ export default function Home() {
             No listings found.
           </div>
         ) : (
-          listings.map((l, i) => (
+          listings.map((l) => (
             <Link to={`/listing/${l._id}`} key={l._id} className="listing-card">
               <div className="listing-card-wrapper">
-                <div
-                  className="listing-card-image"
-                  style={{
-                    background: `linear-gradient(135deg, 
-                      hsl(${(i * 37) % 360}, 25%, 92%) 0%, 
-                      hsl(${(i * 37 + 40) % 360}, 20%, 85%) 100%)`,
-                  }}
-                >
-                  {l.location}
+                <div className="listing-card-image">
+                  {l.images && l.images.length > 0 ? (
+                    <img
+                      src={`http://localhost:5000${l.images[0]}`}
+                      alt={l.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  ) : (
+                    <span>{l.location}</span>
+                  )}
                 </div>
                 <button
                   type="button"

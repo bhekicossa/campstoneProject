@@ -246,7 +246,17 @@ export default function Dashboard() {
               <div className="my-listings">
                 {myListings.map((l) => (
                   <div key={l._id} className="my-listing-card">
-                    <div className="my-listing-card-image">{l.location}</div>
+                    <div className="my-listing-card-image">
+                      {l.images && l.images.length > 0 ? (
+                        <img
+                          src={`http://localhost:5000${l.images[0]}`}
+                          alt={l.title}
+                          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 8 }}
+                        />
+                      ) : (
+                        <span>{l.location}</span>
+                      )}
+                    </div>
                     <div className="my-listing-card-body">
                       <h3 className="my-listing-card-title">{l.title}</h3>
                       <p className="my-listing-card-meta">Entire home in {l.location}</p>

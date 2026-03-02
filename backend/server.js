@@ -84,6 +84,16 @@ app.use("/api/accommodations", upload.array("images", 10), accommodationRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use("/api/reviews", reviewRoutes);
 
+// In production, serve the React build as well
+if (process.env.NODE_ENV === "production") {
+  const buildPath = path.join(__dirname, "..", "build");
+  app.use(express.static(buildPath));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(buildPath, "index.html"));
+  });
+}
+
 // Test route
 app.get("/", (req, res) => res.send("API Running"));
 
